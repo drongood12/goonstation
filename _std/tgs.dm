@@ -253,7 +253,7 @@
 	/// The help text displayed for this command
 	var/help_text = ""
 	/// If this command should be available to game administrators only
-	var/admin_only = FALSE
+	var/admin_only_goon_sucks = FALSE
 
 /**
  * Process command activation. Should return a string to respond to the issuer with.
@@ -295,9 +295,9 @@
  * Send a message to connected chats.
  *
  * message - The string to send.
- * admin_only: If [TRUE], message will be sent to admin connected chats. Vice-versa applies.
+ * admin_only_goon_sucks: If [TRUE], message will be sent to admin connected chats. Vice-versa applies.
  */
-/world/proc/TgsTargetedChatBroadcast(message, admin_only = FALSE)
+/world/proc/TgsTargetedChatBroadcast(message, admin_only_goon_sucks = FALSE)
 	return
 
 /**
