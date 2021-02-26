@@ -27,7 +27,7 @@
 		command_name_types[stc] = command_name
 
 		if(!warnings_only)
-			.[command_name] = list(SERVICE_JSON_PARAM_HELPTEXT = initial(stc.help_text), SERVICE_JSON_PARAM_ADMINONLY = initial(stc.admin_only_goon_sucks), SERVICE_JSON_PARAM_REQUIREDPARAMETERS = 0)
+			.[command_name] = list(SERVICE_JSON_PARAM_HELPTEXT = initial(stc.help_text), SERVICE_JSON_PARAM_ADMINONLY = initial(stc.admin_only), SERVICE_JSON_PARAM_REQUIREDPARAMETERS = 0)
 
 /datum/tgs_api/v3210/proc/HandleServiceCustomCommand(command, sender, params)
 	if(!cached_custom_tgs_chat_commands)
@@ -42,5 +42,11 @@
 	var/datum/tgs_chat_command/stc = new command_type
 	var/datum/tgs_chat_user/user = new
 	user.friendly_name = sender
+
+	// Discord hack, fix the mention if it's only numbers (fuck you IRC trolls)
+	var/regex/discord_id_regex = regex(@"^[0-9]+$")
+	if(findtext(sender, discord_id_regex))
+		sender = "<@[sender]>"
+
 	user.mention = sender
 	return stc.Run(user, params) || TRUE
