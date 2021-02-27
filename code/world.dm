@@ -834,27 +834,20 @@ var/f_color_selector_handler/F_Color_Selector
 	logDiary("TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 	Z_LOG_DEBUG("World", "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
+	var/static/list/topic_handlers = TopicHandlers()
+
+	var/list/input = params2list(T)
+	var/datum/world_topic/handler
+	for(var/I in topic_handlers)
+		if(I in input)
+			handler = topic_handlers[I]
+			break
+
 	if (T == "ping")
 		var/x = 1
 		for (var/client/C)
 			x++
 		return x
-
-	else if(T == "players")
-		var/n = 0
-		for(var/client/C)
-			n++
-		return n
-
-	else if (T == "admins")
-		var/list/s = list()
-		var/n = 0
-		for(var/client/C)
-			if(C.holder)
-				s["admin[n]"] = (C.stealth ? "~" : "") + C.key
-				n++
-		s["admins"] = n
-		return list2params(s)
 
 	else if (T == "mentors")
 		var/list/s = list()
@@ -865,40 +858,6 @@ var/f_color_selector_handler/F_Color_Selector
 				n++
 		s["mentors"] = n
 		return list2params(s)
-
-	else if (T == "status")
-		var/list/s = list()
-		s["version"] = game_version
-		s["mode"] = (ticker?.hide_mode) ? "secret" : master_mode
-		s["respawn"] = config ? abandon_allowed : 0
-		s["enter"] = enter_allowed
-		s["ai"] = config.allow_ai
-		s["host"] = host ? host : null
-		s["players"] = list()
-		s["revision"] = revdata.commit
-		s["revision_date"] = revdata.date
-		s["station_name"] = station_name
-		var/shuttle
-		if (emergency_shuttle)
-			if (emergency_shuttle.location == SHUTTLE_LOC_STATION) shuttle = 0 - emergency_shuttle.timeleft()
-			else shuttle = emergency_shuttle.timeleft()
-		else shuttle = "welp"
-		s["shuttle_time"] = shuttle
-		var/elapsed
-		if (current_state < GAME_STATE_FINISHED)
-			if (current_state <= GAME_STATE_PREGAME) elapsed = "pre"
-			else if (current_state > GAME_STATE_PREGAME) elapsed = round(ticker.round_elapsed_ticks / 10)
-		else if (current_state == GAME_STATE_FINISHED) elapsed = "post"
-		else elapsed = "welp"
-		s["elapsed"] = elapsed
-		var/n = 0
-		for(var/client/C in clients)
-			s["player[n]"] = "[(C.stealth || C.alt_key) ? C.fakekey : C.key]"
-			n++
-		s["players"] = n
-		s["map_name"] = getMapNameFromID(map_setting)
-		return list2params(s)
-
 	else // Discord bot communication (or callbacks)
 
 #ifdef TWITCH_BOT_ALLOWED
@@ -1659,6 +1618,13 @@ var/f_color_selector_handler/F_Color_Selector
 					logTheThing("diary", null, null, msg, "admin")
 
 				return 1
+	if(!handler)
+		return
+
+	handler = new handler()
+	return handler.TryRun(input)
+
+
 
 /world/proc/setMaxZ(new_maxz)
 	if (!isnum(new_maxz) || new_maxz <= src.maxz)

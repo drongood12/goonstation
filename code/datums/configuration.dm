@@ -102,6 +102,10 @@
 	var/whitelistEnabled = 0
 	var/whitelist_path = "strings/whitelist.txt"
 
+	var/comms_key = null
+
+	var/cross_comms_network = null
+
 /datum/configuration/New()
 	..()
 	var/list/L = childrentypesof(/datum/game_mode)
@@ -363,6 +367,12 @@
 
 			if ("whitelist_path")
 				config.whitelist_path = trim(value)
+
+			if ("comms_key")
+				config.comms_key = trim(value)
+
+			if ("cross_comms_network")
+				config.cross_comms_network = trim(value)
 
 			else
 				logDiary("Unknown setting in configuration: '[name]'")
