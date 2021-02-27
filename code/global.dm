@@ -441,6 +441,7 @@ var/global
 	deep_farting = 0
 
 	datum/titlecard/lobby_titlecard
+	datum/getrev/revdata = null
 
 	total_souls_sold = 0
 	total_souls_value = 0

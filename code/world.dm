@@ -393,8 +393,14 @@ var/f_color_selector_handler/F_Color_Selector
 /world/New()
 	Z_LOG_DEBUG("World/New", "World New()")
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
+	revdata = new /datum/getrev()
 	tick_lag = MIN_TICKLAG//0.4//0.25
 //	loop_checks = 0
+
+	// Load in the current commit SHA from TGS...
+	if(TgsAvailable())
+		revdata.load_tgs_info()
+		vcs_revision = revdata.commit
 
 	if(world.load_intra_round_value("heisenbee_tier") >= 15 && prob(50) || prob(3))
 		lobby_titlecard = new /datum/titlecard/heisenbee()
@@ -869,6 +875,8 @@ var/f_color_selector_handler/F_Color_Selector
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
 		s["players"] = list()
+		s["revision"] = revdata.commit
+		s["revision_date"] = revdata.date
 		s["station_name"] = station_name
 		var/shuttle
 		if (emergency_shuttle)
