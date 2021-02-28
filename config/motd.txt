@@ -1,14 +1,14 @@
-<h1>A Goonstation server!</h1>
-<i>Servers managed by Wire.</i><br>
-Need to talk over radio? '<b>say ;your message</b>'<br>
-Got a question about game mechanics? Use <b>mentorhelp (F3)</b> or consult the <a href="https://wiki.ss13.co/">wiki</a>.<br>
-Got a problem? Use <b>adminhelp (F1)</b> if you want to complain about it, not deadchat or OOC.</b><br>
-Got a suggestion or bug report? Post it on the Goonstation <a href="https://forum.ss13.co/index.php">discussion forum</a>.
+<h1>Русскоговорящий Goonstation сервер!</h1>
+<i>Сервером управляет Drongood12.</i><br>
+Нужно поговорить по радио? '<b>say ;your message</b>'<br>
+Есть вопрос по игровой механике? Используй <b>mentorhelp (F3)</b> или прочитайте <a href="https://wiki.ss13.co/">вики</a>.<br>
+Есть проблема? Используйте <b>adminhelp (F1)</b> Если хотите пожаловаться на это, а не на мертвый чат или OOC.</b><br>
+Есть предложение или отчет об ошибке? Опубликуйте это на Goonstation <a href="https://forum.ss13.co/index.php">дискуссионном форуме</a>.
 <br>
-<b>By playing here you accept that you may occasionally / frequently be toolboxed / bombed / burned at any time for someone's amusement.</b>
+<b>Играя здесь, вы соглашаетесь с тем, что время от времени/часто на вас могут напасть/убить/взорвать/сжечь в любое время для чьего-то удовольствия..</b>
 <br>
-<h3><span style="color:#FF0000">BIG BAD LIST OF THINGS THAT COULD GET YOU BANNED:</span></h3>
-<strong><span style="color:#FF0000">Not reading the rules.</span><br>
-<a href="https://wiki.ss13.co/Rules"><span style="color:#FF0000">See the wiki page through this link for the most up-to-date rules, or the 'Rules' command.</span></a></strong>
+<h3><span style="color:#FF0000">БОЛЬШОЙ ПЛОХОЙ СПИСОК ВЕЩЕЙ, ЗА КОТОРЫЙ ВЫ СКОРЕЕ ВСЕГО ПОЛУЧИТЕ БАН:</span></h3>
+<strong><span style="color:#FF0000">Не прочитал правила.</span><br>
+<a href="https://wiki.ss13.co/Rules"><span style="color:#FF0000">См. Страницу вики по этой ссылке для получения самых последних правил или команду 'Rules'.</span></a></strong>
 <br>
-<h2><span style="color:#0000FF;text-decoration:none">Enjoy the server? Join the <b>Goonstation</b> </span><a href="http://discord.gg/zd8t6pY">Discord</a><span style="color:#0000FF;text-decoration:none"> and contact <b>Wire</b> for donations to <b>Goonstation</b>. Wire can also receive donations at <a href="https://www.gofundme.com/9hzx4yjs"><b>his GoFundMe</b></a> and <a href="https://www.patreon.com/goonstation"><b>his Patreon</b></a>!</span></h2>
+<h2><span style="color:#0000FF;text-decoration:none">Нравится сервер? Присоединяйтесь к <b>Goonstation</b> </span><a href="https://discord.gg/H9yzpx7q47">Дискорду</a><span style="color:#0000FF;text-decoration:none">и связаться с <b>Drongood12</b> для пожертвований <b>Goonstation.</b></span></h2>
