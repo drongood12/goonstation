@@ -82,3 +82,6 @@ Desktop.ini
 
 # Dedicated unversioned folder
 /unversioned/**/*
+
+# Common build tooling
+!/tools/build
