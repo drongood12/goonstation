@@ -236,7 +236,9 @@ var/global/list/statusGroupLimits = list("Food"=4)
 /atom/proc/getStatusDuration(statusId)
 	.= null
 	if(statusEffects)
-		for(var/datum/statusEffect/status as() in statusEffects) //dont typecheck as we loop through StatusEffects - Assume everything inside must be a statuseffect
+		var/datum/statusEffect/status = 0
+		for(var/S in statusEffects) //dont typecheck as we loop through StatusEffects - Assume everything inside must be a statuseffect
+			status = S
 			if(status.id == statusId)
 				. = status.duration
 				break
@@ -250,12 +252,16 @@ var/global/list/statusGroupLimits = list("Food"=4)
 /atom/proc/hasStatus(statusId, optionalArgs = null)
 	if(statusEffects)
 		if (!islist(statusId))
-			for(var/datum/statusEffect/status as() in statusEffects) //dont typecheck as we loop through StatusEffects - Assume everything inside must be a statuseffect
+			var/datum/statusEffect/status
+			for(var/S in statusEffects) //dont typecheck as we loop through StatusEffects - Assume everything inside must be a statuseffect
+				status = S
 				if(status.id == statusId && ((optionalArgs && status.onCheck(optionalArgs)) || (!optionalArgs)))
 					return status
 		else
 			var/list/idlist = statusId
-			for(var/datum/statusEffect/status as() in statusEffects)
+			var/datum/statusEffect/status
+			for(var/S in statusEffects)
+				status = S
 				if((status.id in idlist) && ((optionalArgs && status.onCheck(optionalArgs)) || (!optionalArgs)))
 					return status
 
