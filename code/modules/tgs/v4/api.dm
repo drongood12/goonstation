@@ -269,11 +269,11 @@
 	else
 		Export(TGS4_COMM_CHAT, message)
 
-/datum/tgs_api/v4/ChatTargetedBroadcast(message, admin_only_goon_sucks)
+/datum/tgs_api/v4/ChatTargetedBroadcast(message, admin_only)
 	var/list/channels = list()
 	for(var/I in ChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
-		if (!channel.is_private_channel && ((channel.is_admin_channel && admin_only_goon_sucks) || (!channel.is_admin_channel && !admin_only_goon_sucks)))
+		if (!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
 			channels += channel.id
 	message = list("message" = message, "channelIds" = channels)
 	if(intercepted_message_queue)
