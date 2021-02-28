@@ -17,8 +17,8 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 function ExtractVersion {
 	param([string] $Path, [string] $Key)
 	foreach ($Line in Get-Content $Path) {
-		if ($Line.StartsWith("$Key=")) {
-			return $Line.Substring("$Key=".Length)
+		if ($Line.StartsWith("export $Key=")) {
+			return $Line.Substring("export $Key=".Length)
 		}
 	}
 	throw "Couldn't find value for $Key in $Path"
@@ -31,7 +31,7 @@ $Cache = "$Bootstrap/.cache"
 if ($Env:TG_BOOTSTRAP_CACHE) {
 	$Cache = $Env:TG_BOOTSTRAP_CACHE
 }
-$PythonVersion = ExtractVersion -Path "$Bootstrap/../../buildByond.conf" -Key "PYTHON_VERSION"
+$PythonVersion = ExtractVersion -Path "$Bootstrap/../../dependencies.sh" -Key "PYTHON_VERSION"
 $PythonDir = "$Cache/python-$PythonVersion"
 $PythonExe = "$PythonDir/python.exe"
 $Log = "$Cache/last-command.log"
