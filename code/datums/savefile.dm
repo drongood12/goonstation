@@ -17,7 +17,7 @@
 
 		query["method"] = method
 		query["ckey"] = ckey
-		query["name"] = name
+		query["name"] = url_encode(name)
 
 		if (data)
 			query["data"] = data
@@ -400,7 +400,7 @@
 			return 0
 
 		// Fetch via HTTP from goonhub
-		var/list/response = src.sendRequest("get", user.ckey, user.name)
+		var/list/response = src.sendRequest("get", user.ckey, name)
 
 		if (!response)
 			return 0
@@ -437,7 +437,7 @@
 
 	cloudsave_delete( client/user, var/name )
 		// Request deletion via HTTP from goonhub
-		var/list/response = src.sendRequest("delete", user.ckey, user.name)
+		var/list/response = src.sendRequest("delete", user.ckey, name)
 
 		// TODO add logging
 		if (!response)
