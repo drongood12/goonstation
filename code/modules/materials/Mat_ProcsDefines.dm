@@ -35,8 +35,8 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 
 	if(l2)
 		for(var/x in l2)
-			if(x in merged)
-				if(merged.Find(x))
+			if(merged.Find(x))
+				merged[x] = round(merged[x] * oBias + l2[x] * bias)
 			else
 				merged.Add(x)
 				merged[x] = l2[x]
