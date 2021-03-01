@@ -145,7 +145,7 @@ var/global/list/triggerVars = list("triggersOnBullet", "triggersOnEat", "trigger
 
 	for(var/datum/material_property/P in base.properties)
 		if(base.properties[P] >= P.prefix_high_min)
-			if(!thelist.Find(P.getAdjective(base)
+			if(!thelist.Find(P.getAdjective(base)))
 				thelist.Add(P.getAdjective(base))
 			continue
 		else if(base.properties[P] <= P.prefix_low_max)
