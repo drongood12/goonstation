@@ -423,7 +423,7 @@
 		var/exported = save.ExportText()
 
 		// Fetch via HTTP from goonhub
-		var/list/response = src.sendRequest("get", user.ckey, user.name, url_encode(exported))
+		var/list/response = src.sendRequest("get", user.ckey, name, url_encode(exported))
 
 		if (!response)
 			return 0
