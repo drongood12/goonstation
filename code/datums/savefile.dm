@@ -11,6 +11,24 @@
 
 /datum/preferences/proc
 
+	sendRequest(method, ckey, name, data = "")
+		var/query[] = new()
+		var/list/response = null
+
+		query["method"] = method
+		query["ckey"] = ckey
+		query["name"] = name
+
+		if (data)
+			query["data"] = data
+
+		try
+			response = apiHandler.queryAPI("api/cloudsave", query, 1)
+		catch
+			return 0
+
+		return json_decode(html_decode(response["response"]))
+
 	savefile_path(client/user)
 		return "data/player_saves/[copytext(user.ckey, 1, 2)]/[user.ckey].sav"
 
@@ -382,22 +400,17 @@
 			return 0
 
 		// Fetch via HTTP from goonhub
-		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/cloudsave?get&ckey=[user.ckey]&name=[url_encode(name)]&api_key=[config.ircbot_api]", "", "")
-		request.begin_async()
-		UNTIL(request.is_complete())
-		var/datum/http_response/response = request.into_response()
+		var/list/response = src.sendRequest("get", user.ckey, user.name)
 
-		if (response.errored || !response.body)
-			logTheThing("debug", null, null, "<b>cloudsave_load:</b> Failed to contact goonhub. u: [user.ckey]")
+		if (!response)
+			return 0
+
+		if (response["status"] == "error")
+			logTheThing("debug", null, null, "<b>cloudsave_get:</b> Failed to contact goonhub. u: [user.ckey]")
 			return
 
-		var/list/ret = json_decode(response.body)
-		if( ret["status"] == "error" )
-			return ret["error"]["error"]
-
 		var/savefile/save = new
-		save.ImportText( "/", ret["savedata"] )
+		save.ImportText( "/", response["savedata"] )
 		return src.savefile_load(user, 1, save)
 
 	cloudsave_save( client/user, var/name )
@@ -410,32 +423,27 @@
 		var/exported = save.ExportText()
 
 		// Fetch via HTTP from goonhub
-		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/cloudsave?put&ckey=[user.ckey]&name=[url_encode(name)]&api_key=[config.ircbot_api]&data=[url_encode(exported)]", "", "")
-		request.begin_async()
-		UNTIL(request.is_complete())
-		var/datum/http_response/response = request.into_response()
+		var/list/response = src.sendRequest("get", user.ckey, user.name, url_encode(exported))
 
-		if (response.errored || !response.body)
-			logTheThing("debug", null, null, "<b>cloudsave_load:</b> Failed to contact goonhub. u: [user.ckey]")
-			return
+		if (!response)
+			return 0
 
-		var/list/ret = json_decode(response.body)
-		if( ret["status"] == "error" )
-			return ret["error"]["error"]
+		// TODO add logging and return error
+		if (response["status"] == "error")
+			return 0
+
 		user.player.cloudsaves[ name ] = length( exported )
 		return 1
 
 	cloudsave_delete( client/user, var/name )
-
 		// Request deletion via HTTP from goonhub
-		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/cloudsave?delete&ckey=[user.ckey]&name=[url_encode(name)]&api_key=[config.ircbot_api]", "", "")
-		request.begin_async()
-		UNTIL(request.is_complete())
-		var/datum/http_response/response = request.into_response()
+		var/list/response = src.sendRequest("delete", user.ckey, user.name)
 
-		if (response.errored || !response.body)
+		// TODO add logging
+		if (!response)
+			return 0
+
+		if (response["status"] == "error")
 			logTheThing("debug", null, null, "<b>cloudsave_delete:</b> Failed to contact goonhub. u: [user.ckey]")
 			return
 
