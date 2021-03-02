@@ -8,7 +8,7 @@
 	query["round_status"] = "start"
 
 	try
-		response = apiHandler.queryAPI("round/save", query, 1)
+		apiHandler.queryAPI("round/save", query, 1)
 	catch
 		return 0
 
@@ -22,6 +22,6 @@
 	query["game_type"] = ticker?.mode ? ticker.mode.name : "pre"
 
 	try
-		response = apiHandler.queryAPI("round/save", query, 1)
+		apiHandler.queryAPI("round/save", query, 1)
 	catch
 		return 0
