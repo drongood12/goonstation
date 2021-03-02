@@ -3,31 +3,25 @@
 // Called in world.dm at new()
 /proc/round_start_data()
 
-	var/message[] = new()
-	message["token"] = md5(config.goonhub_parser_key)
-	message["round_name"] = url_encode(station_name())
-	message["round_server"]  = config.server_id
-	message["round_server_number"] = "[serverKey]"
-	message["round_status"] = "start"
+	var/query[] = new()
+	query["round_name"] = url_encode(station_name())
+	query["round_status"] = "start"
 
-	// Send data
-	var/datum/http_request/request = new()
-	request.prepare(RUSTG_HTTP_METHOD_GET, "[config.goonhub_parser_url][list2params(message)]", "", "")
-	request.begin_async()
+	try
+			response = apiHandler.queryAPI("round/save", query, 1)
+	catch
+			return 0
 
 // Called in gameticker.dm at the end of the round.
 /proc/round_end_data(var/reason)
 
-	var/message[] = new()
-	message["token"] = md5(config.goonhub_parser_key)
-	message["round_name"] = url_encode(station_name())
-	message["round_server"]  = config.server_id
-	message["round_server_number"] = "[serverKey]"
-	message["round_status"] = "end"
-	message["end_reason"] = reason
-	message["game_type"] = ticker?.mode ? ticker.mode.name : "pre"
+	var/query[] = new()
+	query["round_name"] = url_encode(station_name())
+	query["round_status"] = "end"
+	query["end_reason"] = reason
+	query["game_type"] = ticker?.mode ? ticker.mode.name : "pre"
 
-	// Send data
-	var/datum/http_request/request = new()
-	request.prepare(RUSTG_HTTP_METHOD_GET, "[config.goonhub_parser_url][list2params(message)]", "", "")
-	request.begin_async()
+	try
+			response = apiHandler.queryAPI("round/save", query, 1)
+	catch
+			return 0
