@@ -2057,7 +2057,7 @@ var/global/lastDectalkUse = 0
 		response = json_decode(html_decode(response["response"]))
 
 		if(response["status"] == "error")
-			logTheThing( "debug", src.key, null, "failed tts request: [response["message"]]" )
+			logTheThing( "debug", null, null, "failed tts request: [response["message"]]" )
 			return
 
 		return list("audio" = response["body"], "message" = msg)
