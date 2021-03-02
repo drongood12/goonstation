@@ -8,9 +8,9 @@
 	query["round_status"] = "start"
 
 	try
-			response = apiHandler.queryAPI("round/save", query, 1)
+		response = apiHandler.queryAPI("round/save", query, 1)
 	catch
-			return 0
+		return 0
 
 // Called in gameticker.dm at the end of the round.
 /proc/round_end_data(var/reason)
@@ -22,6 +22,6 @@
 	query["game_type"] = ticker?.mode ? ticker.mode.name : "pre"
 
 	try
-			response = apiHandler.queryAPI("round/save", query, 1)
+		response = apiHandler.queryAPI("round/save", query, 1)
 	catch
-			return 0
+		return 0
