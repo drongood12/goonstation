@@ -2040,18 +2040,27 @@ var/global/lastDectalkUse = 0
 		lastDectalkUse = world.timeofday
 		msg = copytext(msg, 1, 2000)
 
-		// Fetch via HTTP from goonhub
-		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/tts?dectalk=[url_encode(msg)]&api_key=[url_encode(ircbot.apikey)]", "", "")
-		request.begin_async()
-		UNTIL(request.is_complete())
-		var/datum/http_response/response = request.into_response()
+		var/query[] = new()
+		var/list/response = null
 
-		if (response.errored || !response.body)
+		query["dectalk"] = url_encode(msg)
+
+		try
+			response = apiHandler.queryAPI("api/tts", query, 1)
+		catch
+			return
+
+		if (!response)
 			logTheThing("debug", null, null, "<b>dectalk:</b> Failed to contact goonhub. msg : [msg]")
 			return
 
-		return list("audio" = response.body, "message" = msg)
+		response = json_decode(html_decode(response["response"]))
+
+		if(response["status"] == "error")
+			logTheThing( "debug", src.key, null, "failed tts request: [response["message"]]" )
+			return
+
+		return list("audio" = response["body"], "message" = msg)
 	else
 		return list("cooldown" = 1)
 
