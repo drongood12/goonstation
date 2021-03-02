@@ -115,10 +115,16 @@
 			return FALSE
 		clouddata[key] = "[value]"
 
-		// Via rust-g HTTP
-		var/datum/http_request/request = new() //If it fails, oh well...
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/cloudsave?dataput&api_key=[config.ircbot_api]&ckey=[ckey]&key=[url_encode(key)]&value=[url_encode(clouddata[key])]", "", "")
-		request.begin_async()
+		var/query[] = new()
+		query["method"] = "dataput"
+		query["ckey"] = ckey
+		query["key"] = url_encode(key)
+		query["value"] = url_encode(clouddata[key])
+
+		try
+			apiHandler.queryAPI("api/cloudsave", query, 1)
+		catch
+			return 0
 		return TRUE // I guess
 
 	/// Returns some cloud data on the client
@@ -133,23 +139,29 @@
 	proc/cloud_fetch()
 		if(!cdn)
 			return
-		var/datum/http_request/request = new()
-		request.prepare(RUSTG_HTTP_METHOD_GET, "http://spacebee.goonhub.com/api/cloudsave?list&ckey=[ckey]&api_key=[config.ircbot_api]", "", "")
-		request.begin_async()
-		UNTIL(request.is_complete())
-		var/datum/http_response/response = request.into_response()
 
-		if (response.errored || !response.body)
+		var/query[] = new()
+		var/list/response = null
+
+		query["method"] = "list"
+		query["ckey"] = ckey
+
+		try
+			response = apiHandler.queryAPI("api/cloudsave", query, 1)
+		catch
+			return FALSE
+
+		if (!response)
 			logTheThing("debug", src.key, null, "failed to have their cloud data loaded: Couldn't reach Goonhub")
 			return FALSE
 
-		var/list/ret = json_decode(response.body)
-		if(ret["status"] == "error")
-			logTheThing( "debug", src.key, null, "failed to have their cloud data loaded: [ret["error"]["error"]]" )
+		response = json_decode(html_decode(response["response"]))
+		if(response["status"] == "error")
+			logTheThing( "debug", src.key, null, "failed to have their cloud data loaded: [response["message"]]" )
 			return FALSE
 		else
-			cloudsaves = ret["saves"]
-			clouddata = ret["cdata"]
+			cloudsaves = response["saves"]
+			clouddata = response["cdata"]
 			return TRUE
 
 /// returns a reference to a player datum based on the ckey you put into it
