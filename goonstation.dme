@@ -48,6 +48,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\SimpleLight.dm"
 #include "code\world.dm"
 #include "code\style.dms"
+#include "code\__HELPERS\chat.dm"
 #include "code\atom\throwing.dm"
 #include "code\atom\UpdateOverlays.dm"
 #include "code\chui\chui.dm"

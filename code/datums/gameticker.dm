@@ -239,6 +239,8 @@ var/global/current_state = GAME_STATE_WORLD_INIT
 		boutput(world, "<FONT class='notice'><B>Enjoy the game!</B></FONT>")
 		boutput(world, "<span class='notice'><b>Tip:</b> [pick(dd_file2list("strings/roundstart_hints.txt"))]</span>")
 
+		send2chat("Новый раунд начинается на карте [getMapNameFromID(map_setting)]! Присоединиться: <[config.server_address]>", config.chat_announce_new_game)
+
 		//Setup the hub site logging
 		var hublog_filename = "data/stats/data.txt"
 		if (fexists(hublog_filename))

@@ -102,6 +102,9 @@
 	var/whitelistEnabled = 0
 	var/whitelist_path = "strings/whitelist.txt"
 
+	var/chat_announce_new_game = 0
+	var/server_address = ""
+
 /datum/configuration/New()
 	..()
 	var/list/L = childrentypesof(/datum/game_mode)
@@ -363,6 +366,12 @@
 
 			if ("whitelist_path")
 				config.whitelist_path = trim(value)
+
+			if ("chat_announce_new_game")
+				config.chat_announce_new_game = 1
+
+			if("server_address")
+				config.server_address = trim(value)
 
 			else
 				logDiary("Unknown setting in configuration: '[name]'")
