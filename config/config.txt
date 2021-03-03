@@ -78,13 +78,31 @@ ALLOW_AI
 # goon authentication
 # AUTHENTICATION
 
-# Disable respawning
-NORESPAWN
+SERVERID main
 
-# Server Name
-SERVERNAME Goonstation
+SERVERKEY 1
+
+SERVERNAME [RU] Goonstation 13
+
 #SERVERSUFFIX
-SERVERREGION Development
+
+#SERVERREGION Russia
+
+GOONHUB_PARSER_URL http://localhost:8000/parser/
+
+GOONHUB_PARSER_KEY parser_key
+
+GOONHUB_API_VERSION 1
+
+GOONHUB_API_ENDPOINT http://localhost:8000
+
+GOONHUB_API_IP 127.0.0.1:8000
+
+GOONHUB_API_TOKEN api_token
+
+GOONHUB_API_WEB_TOKEN api_web_token
+
+DISABLE_RESOURCE_CACHE
 
 CDN http://cdn.goonhub.com
 ENV dev
