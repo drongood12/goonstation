@@ -4,7 +4,7 @@
 /proc/round_start_data()
 
 	var/query[] = new()
-	query["round_name"] = url_encode(station_name())
+	query["station_name"] = url_encode(station_name())
 	query["round_status"] = "start"
 
 	try
@@ -16,7 +16,7 @@
 /proc/round_end_data(var/reason)
 
 	var/query[] = new()
-	query["round_name"] = url_encode(station_name())
+	query["station_name"] = url_encode(station_name())
 	query["round_status"] = "end"
 	query["end_reason"] = reason
 	query["game_type"] = ticker?.mode ? ticker.mode.name : "pre"

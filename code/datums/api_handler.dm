@@ -56,8 +56,8 @@ var/global/datum/apiHandler/apiHandler
 
 		var/req = "[config.goonhub_api_endpoint]/[route]/?[query ? "[list2params(query)]&" : ""]" //Necessary
 		req += "[forceResponse ? "bypass=1&" : ""]" //Force a response RIGHT NOW y/n
-		req += "data_server=[serverKey]&data_id=[config.server_id]&" //Append server number and ID
-		req += "data_version=[config.goonhub_api_version]&" //Append API version
+		req += "server_key=[serverKey]&server_id=[config.server_id]&" //Append server number and ID
+		req += "api_version=[config.goonhub_api_version]&" //Append API version
 		var/safeReq = req //for outputting errors without the auth code
 		req += "auth_token=[md5(config.goonhub_api_token)]" //Append auth code
 
