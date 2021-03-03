@@ -102,7 +102,7 @@
 	var/whitelistEnabled = 0
 	var/whitelist_path = "strings/whitelist.txt"
 
-	var/chat_announce_new_game = 0
+	var/chat_announce_new_game = ""
 	var/server_address = ""
 
 /datum/configuration/New()
@@ -368,7 +368,7 @@
 				config.whitelist_path = trim(value)
 
 			if ("chat_announce_new_game")
-				config.chat_announce_new_game = 1
+				config.chat_announce_new_game = trim(value)
 
 			if("server_address")
 				config.server_address = trim(value)

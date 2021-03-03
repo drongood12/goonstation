@@ -107,6 +107,6 @@ DISABLE_RESOURCE_CACHE
 CDN http://cdn.goonhub.com
 ENV dev
 
-CHAT_ANNOUNCE_NEW_GAME
+CHAT_ANNOUNCE_NEW_GAME home_server
 
 SERVER_ADDRESS byond://tgstation.ru:1344
