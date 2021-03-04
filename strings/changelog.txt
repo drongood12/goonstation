@@ -1,5 +1,16 @@
 
+(t)thu mar 04 21
+(u)Chickenish
+(p)3749
+(e)⚖🆕|balance, feature
+(+)Recovery over time from blindness, eye blur, deafness, stuttering, and drug haze is now lag adjusted.
 (t)wed mar 03 21
+(u)Kyle
+(e)⚖|balance
+(+)Lizards now have a Regrow Tail ability. It lets you regrow your tail...
+(u)Zamuajasa
+(e)⚖|balance
+(+)Arse Nath/Rathen's Secret no longer causes clouds of smoke.
 (u)Sord
 (p)3797
 (e)⚖|balance
