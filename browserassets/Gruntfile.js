@@ -136,8 +136,8 @@ module.exports = function (grunt) {
         options: {
           replacements: [{
             pattern: /\{\{resource\(\"(.*?)\"\)\}\}/ig,
-            //replacement: cdn + '/$1' + '?cdnrev=' + rev
-            replacement: cdn + '/$1'
+            replacement: cdn + '/$1' + '?cdnrev=' + rev
+            //replacement: cdn + '/$1'
           }]
         }
       },
@@ -151,8 +151,8 @@ module.exports = function (grunt) {
         options: {
           replacements: [{
             pattern: /\{\{resource\(\"(.*?)\"\)\}\}/ig,
-            //replacement: cdn + '/$1' + '?cdnrev=' + rev
-            replacement: cdn + '/$1'
+            replacement: cdn + '/$1' + '?cdnrev=' + rev
+            //replacement: cdn + '/$1'
           }]
         }
       }
