@@ -1,5 +1,13 @@
 
 (t)fri mar 05 21
+(u)Azrun
+(p)3776
+(e)|
+(+)Improve tour guide floating chat display.
+(u)Superlagg
+(p)3692
+(e)🆕|feature
+(*)You can now pick your PDA's ringtone in character setup! Comes with a free copy of that ringtone's parent program.
 (u)Carbadox
 (p)3855
 (e)🆕|feature
