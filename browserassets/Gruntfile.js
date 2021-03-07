@@ -258,7 +258,7 @@ module.exports = function (grunt) {
     'clean',
     'string-replace:css',
     //'sass',
-    'imagemin',
+    // 'imagemin',
     'svgmin',
     'postcss',
     'string-replace:js',
